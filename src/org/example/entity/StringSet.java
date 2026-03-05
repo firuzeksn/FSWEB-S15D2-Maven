@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -24,17 +25,9 @@ public class StringSet {
                 "that did not appear in the manuscript. The only known manuscript copy of Under Ground " +
                 "is held in the British Library. Macmillan published a facsimile of the manuscript in 1886.";
 
-        // Sadece boşluklara göre ayırıyoruz (Bu işlem 143 sonucunu garanti eder)
-        String[] words = text.split("\\s+");
-        Set<String> uniqueWords = new TreeSet<>();
-
-        for (String word : words) {
-            // Sadece başındaki ve sonundaki temizliği yapıyoruz, tireleri ayırmıyoruz
-            String cleaned = word.toLowerCase().replaceAll("^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$", "");
-            if (!cleaned.isEmpty()) {
-                uniqueWords.add(cleaned);
-            }
-        }
+        String[] words = text.toLowerCase().replaceAll("[^a-zA-Z\\s]", "").split("\\s+");
+        TreeSet<String> uniqueWords = new TreeSet<>(Arrays.asList(words));
         return uniqueWords;
+
     }
 }
